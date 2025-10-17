@@ -1,9 +1,9 @@
 // UI 
 
 function show(project) {
-    //clear the div
+    // TODO: clear the div
 
-    // change the title
+    //  TODO: change the title
 
 
     // for each todo display it
@@ -26,13 +26,15 @@ function displayToDo(todo) {
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
-    deleteButton.className = 'delete-btn#'; // How to check for deleting the right todoitem
+    deleteButton.className = 'delete-btn'; // TODO: How to check for deleting the right todoitem
+    deleteButton.addEventListener('click', function(event) {
+        const itemToRemove = event.target.parentElement;
+        itemToRemove.remove();
+            });
 
-    // 3. Assemble the elements and add them to the container
     todoWrapper.appendChild(todoTitle);
     todoWrapper.appendChild(deleteButton);
     listContainer.appendChild(todoWrapper);
 
-    // 4. Return true to indicate that the function ran successfully
     return true;
 }
