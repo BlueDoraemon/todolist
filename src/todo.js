@@ -1,9 +1,10 @@
 class ToDoItem {
   // Private fields are often prefixed with an underscore by convention
-  constructor(title, description, dueDate = null) {
+  constructor(title, description, dueDate = null,done = false) {
     this._title = title;
     this._description = description;
     this._dueDate = dueDate;
+    this._done = done;
   }
 
   // Title getter/setter
@@ -32,6 +33,14 @@ class ToDoItem {
   }
   set dueDate(newDueDate) {
     this._dueDate = newDueDate;
+  }
+    // Getter for the 'done' status
+  get isDone() {
+    return this._done;
+  }
+// ============
+  toggleDone() {
+    this._done = !this.done;
   }
 }
 

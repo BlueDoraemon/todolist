@@ -1,7 +1,7 @@
 class Project {
   constructor(title, toDoList = []) {
-    this.title = title;
-    this.toDoList = toDoList;
+    this.title = title; // String
+    this.toDoList = toDoList; // List
   }
 
   static create(title) {
