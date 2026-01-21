@@ -1,3 +1,4 @@
+import {createToDoItem} from './todo';
 class Project {
   constructor(title, toDoList = []) {
     this.title = title; // String
@@ -35,6 +36,8 @@ class Project {
     }
 }
 
-function createProject(title) {
+export function createProject(title) {
     return Project.create(title)
 }
+
+// create TODO:

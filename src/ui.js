@@ -1,6 +1,7 @@
 // UI 
+const CONTAINER = "input-container"
 
-function show(project) {
+export function show(project) {
     // TODO: clear the div
 
     //  TODO: change the title
@@ -12,8 +13,8 @@ function show(project) {
     });
     return true;
 }
-function displayToDo(todo) {
-    const listContainer = document.getElementById('todolist');
+export function displayToDo(todo) {
+    const listContainer = document.getElementById(CONTAINER);
     if (!listContainer) {
         console.error("Error: The 'todo-list' container was not found in the DOM.");
         return false;

@@ -1,7 +1,6 @@
-import {createToDoItem} from './todo'
-import {createProject} from './projects'
-import {isThereACurrentProject,getProject,saveProject}  from './localStorage'
-import {displayToDo,show} from './ui'
+import { createProject } from './projects.js';
+import { isThereACurrentProject, getProject, saveProject } from './localStorage.js';
+import { show } from './ui.js';
 
 
 function defaultProject() {
@@ -14,8 +13,13 @@ function defaultProject() {
 
 
 // check local storage for project // else create new
-let currentProject = isThereACurrentProject() ? getProject() : defaultProject();
+if (isThereACurrentProject()) {
+    console.log("Okay")
 
-show(currentProject);
+}
+else console.log("Nope")
+let currentProject = (isThereACurrentProject()) ? getProject() : defaultProject();
+
+// show(currentProject);
 
 

@@ -44,6 +44,6 @@ class ToDoItem {
   }
 }
 
-function createToDoItem(title, description, dueDate = null) {
+export function createToDoItem(title, description, dueDate = null) {
   return new ToDoItem(title, description, dueDate);
 }
