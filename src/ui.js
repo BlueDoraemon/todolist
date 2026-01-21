@@ -32,21 +32,37 @@ function createFormField(id, labelText, type = "text", placeholder = "") {
     return { wrapper, input };
 }
 
+//helper function for the empty state
+function renderEmptyState(container) {
+    const emptyState = document.createElement('div');
+    emptyState.className = 'empty-state';
+    
+    // You can customize this text to match your screenshot
+    emptyState.textContent = 'No tasks here yet! Click "Add New Task" to get started.';
+    
+    container.appendChild(emptyState);
+}
+
+// show function
 export function show(project) {
     const listContainer = document.getElementById(CONTAINER);
     const titleElement = document.getElementById(TITLE_ID);
 
     if (!listContainer) return false;
 
-    // 1. Clear the div
+    // Clear the div
     listContainer.innerHTML = "";
 
-    // 2. Change the title
+    // Change the title
     if (titleElement) {
         titleElement.textContent = project.title;
     }
-
-    // 3. Display each todo
+    // if empty
+    if (project.toDoList.length === 0) {
+        renderEmptyState(listContainer);
+        return true;
+    }
+    // Display each todo
     project.toDoList.forEach(todo => {
         displayToDo(todo, project); 
     });
@@ -78,24 +94,20 @@ export function displayToDo(todo, project) {
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete-btn'; 
-    deleteButton.addEventListener('click', function(event) {
-        if (project) {
-            // 1. Remove from data
-            project.removeTodo(todo);
-            
-            // 2. SAVE the change to local storage
-            saveProject(project); 
-        }
-        // 3. Remove from UI
-        event.target.closest('.todo-item').remove();
-    });
+    
     
     deleteButton.addEventListener('click', function(event) {
         if (project) {
+            // Remove from data
             project.removeTodo(todo);
-            // NOTE: You must call save from index.js or pass a save callback here
-            // For now, we just update the UI
+            if (project.toDoList.length === 0) {
+        renderEmptyState(listContainer);
         }
+            
+            // 2SAVE the change to local storage
+            saveProject(project); 
+        }
+        //  Remove from UI
         event.target.closest('.todo-item').remove();
     });
 
@@ -111,11 +123,11 @@ export function displayToDo(todo, project) {
  * @param {Function} saveCallback - Function to run when user clicks "Save". Receives { title, description, dueDate, priority }
  */
 export function addNewTask(saveCallback) {
-    // 1. Create Modal Overlay
+    // Create Modal Overlay
     const overlay = document.createElement('div');
     overlay.className = 'modal-overlay';
 
-    // 2. Create Form Container
+    // Create Form Container
     const form = document.createElement('div');
     form.className = 'task-form';
     
@@ -123,7 +135,7 @@ export function addNewTask(saveCallback) {
     header.textContent = "New Task";
     form.appendChild(header);
 
-    // 3. Create Inputs
+    //  Create Inputs
     const titleObj = createFormField("new-title", "What needs to be done?", "text");
     const descObj = createFormField("new-desc", "Notes / Description", "textarea");
     const dateObj = createFormField("new-date", "Due Date", "date");
@@ -142,7 +154,7 @@ export function addNewTask(saveCallback) {
     form.appendChild(dateObj.wrapper);
     form.appendChild(priorityObj.wrapper);
 
-    // 4. Buttons (Save / Cancel)
+    //  Buttons (Save / Cancel)
     const btnGroup = document.createElement('div');
     btnGroup.className = 'form-buttons';
 
@@ -203,12 +215,11 @@ export function displayButtons(onAddClick) {
     addBtn.className = "add-task-btn"; // Style this in CSS
     
     addBtn.addEventListener('click', () => {
-        // We pass a callback to addNewTask to handle the data saving
+        // callback to addNewTask to handle the data saving
         addNewTask(onAddClick);
     });
 
-    // If you have a specific container for buttons in HTML, use it. 
-    // Otherwise, prepend to body or main container.
+
     if (document.getElementById(BUTTON_CONTAINER_ID)) {
         container.appendChild(addBtn);
     } else {
