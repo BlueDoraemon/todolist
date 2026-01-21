@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple To-Do App</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <div class="project-wrapper">
-        <h1>My To-Do List</h1>
+        <!-- JS looks for "project-title" -->
+        <h1 id="project-title">My To-Do List</h1>
         
-        <div class="input-container">
-            <button id="add-todo-btn">Add</button>
-        </div>
+        <!-- JS looks for "btn-container" to insert the Add button -->
+        <div id="btn-container"></div>
+
+        <!-- JS looks for "input-container" to list the items -->
+        <div id="input-container"></div>
     </div>
 
 </body>

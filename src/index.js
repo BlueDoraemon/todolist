@@ -1,25 +1,44 @@
-import { createProject } from './projects.js';
+// src/index.js
+import { createProject, defaultProject, Project } from './projects.js'; // 1. IMPORT 'Project' Class
+import { createToDoItem } from './todo.js'; 
 import { isThereACurrentProject, getProject, saveProject } from './localStorage.js';
-import { show } from './ui.js';
+import { show, displayButtons } from './ui.js';
+import './styles.css';
 
+// 2. Initialize currentProject correctly
+let currentProject;
 
-function defaultProject() {
-    let newProject = createProject("New Project");
-    newProject.createToDoItem("New Todo", "Description");
-    return newProject;
-}
-
-//check localstorage or else create new project
-
-
-// check local storage for project // else create new
 if (isThereACurrentProject()) {
-    console.log("Okay")
-
+    const rawData = getProject();
+    
+    // THE FIX: Convert plain JSON object back to a real Project instance
+    currentProject = Project.fromJSON(rawData);
+} else {
+    currentProject = defaultProject();
+    saveProject(currentProject);
 }
-else console.log("Nope")
-let currentProject = (isThereACurrentProject()) ? getProject() : defaultProject();
 
-// show(currentProject);
+// 3. Render
+show(currentProject);
 
+// 3. Render Buttons & Define Save Logic
+displayButtons((formData) => {
+    console.log("Saving new task...", formData);
 
+    // A. Create the new item
+    const newItem = createToDoItem(
+        formData.title,
+        formData.description,
+        formData.dueDate
+    );
+
+    // B. Handle Priority (if your ToDoItem supports it)
+    if(formData.priority) {
+        newItem.priority = formData.priority;
+    }
+
+    // C. Add to Project, Save, and Refresh UI
+    currentProject.addTodo(newItem);
+    saveProject(currentProject);
+    show(currentProject);
+});

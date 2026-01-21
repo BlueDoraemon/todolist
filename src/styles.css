@@ -1,0 +1,232 @@
+/* --- Global Resets & Typography --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --primary: #5458F7;      /* The purple color from your screenshot */
+    --primary-hover: #4044cc;
+    --danger: #ff4d4d;
+    --text-dark: #2d3436;
+    --text-light: #636e72;
+    --bg-light: #f4f7fa;     /* Light grey background */
+    --white: #ffffff;
+    --radius: 12px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.project-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px 20px;
+}
+
+/* --- Headers --- */
+h1#project-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+/* --- Button Container (Top Right) --- */
+#btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.add-task-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 4px 10px rgba(84, 88, 247, 0.3);
+}
+
+.add-task-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* --- Todo List Cards --- */
+#input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.todo-item {
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.2s;
+    border-left: 6px solid transparent; 
+     /* background: var(--white); */
+    transition: all 0.2s ease-in-out; /* Smooths both shadow and movement */
+}
+
+.todo-item:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 12px 24px rgba(84, 88, 247, 0.15); /* Stronger, purple-tinted shadow */
+    border-color: rgba(84, 88, 247, 0.5); /* Subtle border highlight */
+    z-index: 10; /* Ensures it sits on top of neighbors */
+}
+
+/* Priority Colors (Left Border) */
+.priority-high   { border-left-color: #ff4d4d; }
+.priority-medium { border-left-color: #ffbb33; }
+.priority-low    { border-left-color: #00c851; }
+
+.todo-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.todo-date {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+/* Delete Button (Subtle Text Style) */
+.delete-btn {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background: #fff0f0;
+}
+
+/* --- MODAL STYLES (The Form) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dimmed background */
+    backdrop-filter: blur(2px);      /* Subtle blur effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.task-form {
+    background: var(--white);
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: slideUp 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.task-form h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* Inputs */
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-group input, 
+.form-group textarea, 
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+    color: var(--text-dark);
+    font-family: inherit;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-sizing: border-box; /* Important for padding */
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: var(--primary);
+    background: var(--white);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(84, 88, 247, 0.1);
+}
+
+/* Modal Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.save-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #e2e8f0;
+    color: var(--text-dark);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.save-btn:hover { background-color: var(--primary-hover); }
+.cancel-btn:hover { background-color: #cbd5e1; }
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

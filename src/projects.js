@@ -1,5 +1,7 @@
+// projects.js
+
 import {createToDoItem} from './todo';
-class Project {
+export class Project {
   constructor(title, toDoList = []) {
     this.title = title; // String
     this.toDoList = toDoList; // List
@@ -40,4 +42,36 @@ export function createProject(title) {
     return Project.create(title)
 }
 
-// create TODO:
+export function defaultProject() {
+    const newProject = createProject("Default Project");
+    
+    // Task 1: High Priority (Red Border)
+    const task1 = createToDoItem(
+        "Complete Odin Project", 
+        "Finish the Full Stack JavaScript curriculum to build a strong portfolio.", 
+        "2026-01-31"
+    );
+    task1.priority = "high"; 
+    
+    // Task 2: Medium Priority (Orange Border)
+    const task2 = createToDoItem(
+        "Learn Webpack", 
+        "Understand loaders, plugins, and how to bundle assets for production.", 
+        "2026-01-20"
+    );
+    task2.priority = "medium";
+    
+    // Task 3: Low Priority (Green Border)
+    const task3 = createToDoItem(
+        "Practice JavaScript Daily", 
+        "Solve one LeetCode problem or build a small component every morning.", 
+        "2026-01-15"
+    );
+    task3.priority = "low";
+
+    newProject.addTodo(task1);
+    newProject.addTodo(task2);
+    newProject.addTodo(task3);
+    
+    return newProject;
+}
